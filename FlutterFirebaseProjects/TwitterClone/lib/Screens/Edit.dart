@@ -13,6 +13,7 @@ class Edit extends StatefulWidget {
 }
 
 class _EditState extends State<Edit> {
+ 
   UserDetails _userService = UserDetails();
   File _profileImage;
   File _bannerImage;
@@ -45,9 +46,7 @@ class _EditState extends State<Edit> {
           padding: const EdgeInsets.only(top:70.0),
           child: new Form(
               child: Column(
-                
             children: [
-              
               MaterialButton(
                 onPressed: () => getImage(0),
                 child: _profileImage == null
@@ -86,7 +85,6 @@ class _EditState extends State<Edit> {
                   onPressed: () async {
                     await _userService.updateProfile(
                         _bannerImage, _profileImage, name);
-                    // Navigator.pop(context);
                   },
                   child: Text('Save'),
                   color: Colors.deepOrange,
