@@ -4,6 +4,7 @@ const b = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 
+
 router.post('/signup', async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -19,7 +20,7 @@ router.post('/signup', async (req, res) => {
 
                 await newUser.save().then((a) => {
                     console.log(a)
-                    const token = jwt.sign({ _id: a._id }, process.env.JWT_SECRET,{expiresIn:"1d"});
+                    const token = jwt.sign({ _id: a._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
                     const { _id, name, email } = a;
                     res.status(201).json({ _id, name, email, token });
                 })
@@ -60,5 +61,8 @@ router.post('/login', async (req, res) => {
         console.log(e);
     }
 });
+
+
+
 
 module.exports = router;

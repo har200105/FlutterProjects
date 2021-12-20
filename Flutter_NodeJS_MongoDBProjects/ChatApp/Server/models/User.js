@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
     pic: {
       type: "String",
       required: true,
-      default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      default:"https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
     },
   },
   { timestaps: true });

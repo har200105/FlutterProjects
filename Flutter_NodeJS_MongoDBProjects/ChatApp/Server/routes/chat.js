@@ -14,7 +14,8 @@ router.get('/getChats',reqLogin,async(req,res)=>{
             //   path: "latestMessage.sender",
             //   select: "name email",
             // });
-            res.status(201).send(results);
+            console.log(results)
+            res.status(201).json(results);
           });
       } catch (error) {
         res.status(400);
@@ -25,9 +26,13 @@ router.get('/getChats',reqLogin,async(req,res)=>{
 router.post('/startChat/:id',reqLogin,async(req,res)=>{
     const userId = req.params.id;
 
+
+
     if (!userId) {
       return res.sendStatus(400);
     }
+
+    const user = await User.findById(userId);
   
     var isChat = await Chat.find({
       $and: [
@@ -45,7 +50,7 @@ router.post('/startChat/:id',reqLogin,async(req,res)=>{
       res.status(201).send(isChat[0]);
     } else {
       var chatData = {
-        chatName: "sender",
+        chatName:user.name,  
         users: [req.user._id, userId],
       };
   
