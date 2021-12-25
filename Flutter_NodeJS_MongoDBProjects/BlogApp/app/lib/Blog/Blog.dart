@@ -18,11 +18,13 @@ class Blog extends StatefulWidget {
 
 class _BlogState extends State<Blog> {
   NetworkHandler networkHandler = NetworkHandler();
+  Data blogModel = Data();
   bool isLiked = false;
   int likes;
   final storage = FlutterSecureStorage();
   String id = "";
   TextEditingController commentController = TextEditingController();
+
 
   void setUserId() async {
     String d;
@@ -71,17 +73,16 @@ class _BlogState extends State<Blog> {
   }
 
   void commentinBlog() async {
+
     var response = networkHandler.putComment(
         "/blogPost/comment/" + widget.addBlogModel.sId,
         {'Comment': commentController.text});
     print(response);
-    setState(() {
-      
-    });
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
-    
-  }
+    setState((){});
+
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+
+}
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,7 @@ class _BlogState extends State<Blog> {
                   context, MaterialPageRoute(builder: (context) => HomePage()));
             },
             icon: Icon(Icons.arrow_back)),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.cyanAccent,
         title: Text(widget.addBlogModel.title),
         centerTitle: true,
       ),
@@ -107,7 +108,7 @@ class _BlogState extends State<Blog> {
               child: Column(
                 children: [
                   Container(
-                    height: 230,
+                    height: 200,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -175,14 +176,7 @@ class _BlogState extends State<Blog> {
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
+                            Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: () {
@@ -195,10 +189,17 @@ class _BlogState extends State<Blog> {
               child: Text(
                   "Posted By : " + widget.addBlogModel.postedBy.username,
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.blue,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold)),
             ),
+          ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -210,17 +211,14 @@ class _BlogState extends State<Blog> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            child: Card(
-              elevation: 15,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 15,
-                ),
-                child: Text(
-                  widget.addBlogModel.body,
-                  style: TextStyle(color: Colors.black),
-                ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 15,
+              ),
+              child: Text(
+                widget.addBlogModel.body,
+                style: TextStyle(color: Colors.black),
               ),
             ),
           ),

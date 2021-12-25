@@ -41,7 +41,7 @@ class _UserProfileState extends State<UserProfile> {
         centerTitle: true,
         title: Text(profileModel.username ?? ""),
         elevation: 0,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.cyanAccent,
       ),
       body: circular
           ? Center(child: CircularProgressIndicator())

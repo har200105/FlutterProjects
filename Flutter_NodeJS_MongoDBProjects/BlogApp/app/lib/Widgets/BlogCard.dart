@@ -36,7 +36,7 @@ class BlogCard extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 30,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
+                 ), // borderRadius: BorderRadius.circular(8)),
                 child: Text(
                   addBlogModel.title,
                   textAlign: TextAlign.center,

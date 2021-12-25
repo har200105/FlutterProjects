@@ -28,7 +28,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.2"
+    version: "2.6.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -98,14 +98,14 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.1.0"
   charcode:
     dependency: transitive
     description:
       name: charcode
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.1"
+    version: "1.2.0"
   checked_yaml:
     dependency: transitive
     description:
@@ -241,7 +241,7 @@ packages:
       name: glob
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.1"
   google_fonts:
     dependency: "direct main"
     description:
@@ -339,14 +339,14 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.11"
+    version: "0.12.10"
   meta:
     dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.3.0"
   mime:
     dependency: transitive
     description:
@@ -381,21 +381,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.8"
-  path_provider_android:
-    dependency: transitive
-    description:
-      name: path_provider_android
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.9"
-  path_provider_ios:
-    dependency: transitive
-    description:
-      name: path_provider_ios
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.7"
+    version: "2.0.4"
   path_provider_linux:
     dependency: transitive
     description:
@@ -458,7 +444,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.4"
+    version: "4.2.3"
   provider:
     dependency: "direct main"
     description:
@@ -554,7 +540,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.3.0"
   timing:
     dependency: transitive
     description:
@@ -575,14 +561,14 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.0"
   watcher:
     dependency: transitive
     description:
       name: watcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.0"
   web_socket_channel:
     dependency: transitive
     description:
@@ -596,7 +582,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "2.2.10"
   xdg_directories:
     dependency: transitive
     description:
@@ -612,5 +598,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.14.0 <3.0.0"
-  flutter: ">=2.5.0"
+  dart: ">=2.13.0 <3.0.0"
+  flutter: ">=2.0.0"

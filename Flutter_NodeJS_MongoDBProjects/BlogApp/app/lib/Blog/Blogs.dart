@@ -62,8 +62,12 @@ class _BlogsState extends State<Blogs> {
                 .toList(),
           )
         : Center(
-            child: Text("We don't have any Blog Yet",
-                style: TextStyle(color: Colors.black)),
+            child: Padding(
+              padding: const EdgeInsets.only(top:50.0),
+              child: Text("We don't have any Blog Yet",
+              textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black)),
+            ),
           );
   }
 }

@@ -25,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Container(
         child: Form(
           key: _globalkey,
@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Sign up with email",
+                "Sign up",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ class _SignUpPageState extends State<SignUpPage> {
               errorText: validate ? null : errorText,
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.yellowAccent,
+                  color: Colors.cyanAccent,
                   width: 2,
                 ),
               ),
@@ -195,7 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.yellowAccent,
+                  color: Colors.cyanAccent,
                   width: 2,
                 ),
               ),
@@ -229,13 +229,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   });
                 },
               ),
-              helperText: "Password length should have >=8",
+              helperText: "Password length should have >=6",
               helperStyle: TextStyle(
                 fontSize: 14,
               ),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.yellowAccent,
+                  color: Colors.cyanAccent,
                   width: 2,
                 ),
               ),

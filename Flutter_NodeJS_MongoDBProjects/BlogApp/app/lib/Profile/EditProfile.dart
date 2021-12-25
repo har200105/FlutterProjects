@@ -30,7 +30,7 @@ class _EditProfileState extends State<EditProfile> {
         Provider.of<UtilityNotifier>(context, listen: true).userimage;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.cyanAccent,
         centerTitle: true,
         title: Text(
           "Edit Profile",
@@ -66,11 +66,10 @@ class _EditProfileState extends State<EditProfile> {
                 utils.uploadImage();
               },
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  backgroundColor: MaterialStateProperty.all(Colors.teal),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                          side: BorderSide(color: Colors.white, width: 4.0)))),
+                          borderRadius: BorderRadius.circular(12.0)))),
               child: Text(
                 utils.userimage.isEmpty ? "Upload Image" : "Reselect Image",
                 style: TextStyle(color: Colors.white),
@@ -124,7 +123,7 @@ class _EditProfileState extends State<EditProfile> {
                     child: circular
                         ? CircularProgressIndicator()
                         : Text(
-                            "Edit Profile",
+                            "Done",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,

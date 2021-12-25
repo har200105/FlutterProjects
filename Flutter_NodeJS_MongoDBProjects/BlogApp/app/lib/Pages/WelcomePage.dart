@@ -58,7 +58,7 @@ class _WelcomePageState extends State<WelcomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

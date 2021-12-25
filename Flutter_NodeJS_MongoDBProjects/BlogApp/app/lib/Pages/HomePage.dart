@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     height: 100,
     width: 100,
     decoration: BoxDecoration(
-      color: Colors.black,
+      color: Colors.blue,
       borderRadius: BorderRadius.circular(50),
     ),
   );
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color(0xFF100E20),
       drawer: Drawer(
         child: Container(
-          color: Colors.black,
+          color: Colors.white,
           child: ListView(
             children: <Widget>[
               DrawerHeader(
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ListTile(
                 title: Text("Logout"),
-                trailing: Icon(Icons.power_settings_new),
+                trailing: Icon(Icons.logout),
                 onTap: logout,
               ),
             ],
@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.cyanAccent,
         title: Text(titleString[currentState]),
         centerTitle: true,
         actions: <Widget>[
@@ -98,10 +98,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.cyanAccent,
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AddBlog()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddBlog()));
         },
         child: Text(
           "+",
@@ -109,9 +108,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        shape: CircularNotchedRectangle(),
-        notchMargin: 12,
+        color: Colors.cyanAccent,
         child: Container(
           height: 60,
           child: Padding(

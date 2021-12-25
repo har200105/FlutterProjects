@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:blogapp/Pages/HomePage.dart';
 import 'package:blogapp/Pages/SignUpPage.dart';
 import "package:flutter/material.dart";
-
 import '../NetworkHandler.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -26,7 +25,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Container(
         child: Form(
           key: _globalkey,
@@ -36,7 +35,7 @@ class _SignInPageState extends State<SignInPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Sign In with Email",
+                  "Sign In ",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -69,7 +68,7 @@ class _SignInPageState extends State<SignInPage> {
                         "New User?",
                         style: TextStyle(
                           color: Colors.green,
-                          fontSize: 17,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

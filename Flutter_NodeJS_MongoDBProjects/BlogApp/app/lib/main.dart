@@ -44,9 +44,10 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          backgroundColor: Colors.white,
             fontFamily: "Poppins",
             textTheme:
-                Theme.of(context).textTheme.apply(bodyColor: Colors.white)),
+                Theme.of(context).textTheme.apply(bodyColor: Colors.black)),
         home: page,
       ),
     );

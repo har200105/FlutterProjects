@@ -30,7 +30,7 @@ class _AddBlogState extends State<AddBlog> {
         Provider.of<UtilityNotifier>(context, listen: true).userimage;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.cyanAccent,
         centerTitle: true,
         title: Text(
           "Add Your Story",
@@ -53,19 +53,22 @@ class _AddBlogState extends State<AddBlog> {
           children: <Widget>[
             titleTextField(),
             bodyTextField(),
-            ElevatedButton(
-              onPressed: () {
-                utils.uploadImage();
-              },
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                          side: BorderSide(color: Colors.white, width: 4.0)))),
-              child: Text(
-                utils.userimage.isEmpty ? "Upload Image" : "Reselect Image",
-                style: TextStyle(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.only(top:15.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  utils.uploadImage();
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.teal),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                ))),
+                child: Text(
+                  utils.userimage.isEmpty ? "Upload Image" : "Reselect Image",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             SizedBox(
@@ -172,20 +175,10 @@ class _AddBlogState extends State<AddBlog> {
           print(response.body);
 
           if (response.statusCode == 200 || response.statusCode == 201) {
-            // String id = json.decode(response.body)["data"];
-            // var imageResponse = await networkHandler.patchImage(
-            //     "/blogPost/add/coverImage/$id", _imageFile.path);
-            // print(imageResponse.statusCode);
-            // if (imageResponse.statusCode == 200 ||
-            //     imageResponse.statusCode == 201) {
-
-             
-
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()),
                 (route) => false);
-            // }
           }
         }
       },

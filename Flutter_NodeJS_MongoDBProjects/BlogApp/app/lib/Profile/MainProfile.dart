@@ -97,7 +97,7 @@ class _MainProfileState extends State<MainProfile> {
                           )));
             },
             child: Text("Edit Profile", style: TextStyle(color: Colors.white)),
-            color: Colors.blue,
+            color: Colors.teal,
           )
         ],
       ),
