@@ -54,7 +54,7 @@ class _AddBlogState extends State<AddBlog> {
             titleTextField(),
             bodyTextField(),
             Padding(
-              padding: const EdgeInsets.only(top:15.0),
+              padding: const EdgeInsets.only(top: 15.0),
               child: ElevatedButton(
                 onPressed: () {
                   utils.uploadImage();
@@ -63,8 +63,8 @@ class _AddBlogState extends State<AddBlog> {
                     backgroundColor: MaterialStateProperty.all(Colors.teal),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                ))),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ))),
                 child: Text(
                   utils.userimage.isEmpty ? "Upload Image" : "Reselect Image",
                   style: TextStyle(color: Colors.white),
@@ -175,6 +175,14 @@ class _AddBlogState extends State<AddBlog> {
           print(response.body);
 
           if (response.statusCode == 200 || response.statusCode == 201) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                "Posted Successfully",
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3),
+            ));
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()),

@@ -76,6 +76,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       if (response.statusCode == 200 ||
                           response.statusCode == 201) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            "Signuped Successfully",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.green,
+                          duration: Duration(seconds: 3),
+                        ));
                         Map<String, dynamic> output =
                             json.decode(response.body);
                         print(output["token"]);
@@ -93,6 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             (route) => false);
                       } else {
+                        // ignore: deprecated_member_use
                         Scaffold.of(context).showSnackBar(
                             SnackBar(content: Text("Netwok Error")));
                       }

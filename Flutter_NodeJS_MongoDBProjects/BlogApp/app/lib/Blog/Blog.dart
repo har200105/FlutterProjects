@@ -80,6 +80,12 @@ class _BlogState extends State<Blog> {
     print(response);
     setState((){});
 
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Commented Successfully",
+    style: TextStyle(
+      color: Colors.white
+    ),
+    ),backgroundColor: Colors.green,duration: Duration(seconds: 3),));
+
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
 
 }

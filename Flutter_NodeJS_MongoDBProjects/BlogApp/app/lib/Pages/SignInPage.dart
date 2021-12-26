@@ -92,6 +92,14 @@ class _SignInPageState extends State<SignInPage> {
 
                     if (response.statusCode == 200 ||
                         response.statusCode == 201) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          "Signed Successfully",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: Colors.green,
+                        duration: Duration(seconds: 3),
+                      ));
                       Map<String, dynamic> output = json.decode(response.body);
                       print(output["token"]);
                       await storage.write(key: "token", value: output["token"]);
