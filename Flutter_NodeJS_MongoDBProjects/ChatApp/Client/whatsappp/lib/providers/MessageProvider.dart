@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whatsappp/Model/Message.dart';
 
 class MessageNotifierProvider extends ChangeNotifier {
-  String url = "http://192.168.1.208:4000";
+    String url = "https://chatharshit.herokuapp.com";
 
   List <Messages>? m = [];
   List<Messages> get messages => m!;
@@ -15,23 +15,23 @@ class MessageNotifierProvider extends ChangeNotifier {
   Future getMessages(String? id) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      print("Id" + id!);
+      // print("Id" + id!);
       http.Response response = await http
-          .get(Uri.parse(url + "/getMessages/" + id), headers: {
+          .get(Uri.parse(url + "/getMessages/" + id!), headers: {
         "Authorization": prefs.getString("jwt"),
         "Content-Type": "Application/json"
       });  
-      print("Response ::");
-      print(response.body);
+      // print("Response ::");
+      // print(response.body);
       if (response.statusCode == 201) {
-        print(response.body);
+        // print(response.body);
         var message = MessageModel.fromJson(jsonDecode(response.body));
         m =  message.messages;
         notifyListeners();
         return message.messages;
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -44,14 +44,20 @@ class MessageNotifierProvider extends ChangeNotifier {
       }, body: {
         'content': content
       });
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 201) {
         getMessages(id);
-        print(response.body);
+        // print(response.body);
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
+  }
+
+  addMessage(String msg){
+    print("ewv");
+    print(msg);
+    notifyListeners();
   }
 
 

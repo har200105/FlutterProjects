@@ -15,12 +15,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(
-        Duration(seconds: 5),
+        Duration(seconds: 2),
         () => {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => Decider()))
             });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

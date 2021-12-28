@@ -16,6 +16,7 @@ class _CardsState extends State<Cards> {
     String? myId="";
     String? chatname="";
     String? chatPic="";
+    String chatUserId="";
    void getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -26,6 +27,7 @@ class _CardsState extends State<Cards> {
           setState(() {
             chatname = widget.chatModel![widget.index].users[i].name;
             chatPic = widget.chatModel![widget.index].users[i].pic;
+            chatUserId = widget.chatModel![widget.index].users[i].id;
           });
         }
       }
@@ -44,7 +46,9 @@ class _CardsState extends State<Cards> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => SingleChatPage(chatId: widget.chatModel![widget.index].id,chatName: chatname)));
+                builder: (context) => SingleChatPage(
+                  chatId: widget.chatModel![widget.index].id,chatName: chatname,
+                  otherUserId:chatUserId)));
       },
       child: Column(
         children: [

@@ -35,7 +35,7 @@ class _ContactCardState extends State<ContactCard> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      SingleChatPage(chatId: jsonDecode(value)['id'],chatName: widget.name)));
+                      SingleChatPage(chatId: jsonDecode(value)['id'],chatName: widget.name,otherUserId: widget.id!,)));
                       
         }) : print("Doing");
       },

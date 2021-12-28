@@ -6,13 +6,14 @@ import 'package:whatsappp/Model/User.dart';
 import 'package:whatsappp/views/Home.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
-  String url = "http://192.168.1.208:4000";
+  String url = "https://chatharshit.herokuapp.com";
+  
 
-  Future userSignup(
-      BuildContext context, String name, String email, String password,String pic) async {
+  Future userSignup(BuildContext context, String name, String email,
+      String password, String pic) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      User user = new User(name, email, password,pic);
+      User user = new User(name, email, password, pic);
       var json = jsonEncode(user.toJson());
       print(json);
       final http.Response response = await http.post(
@@ -27,6 +28,7 @@ class AuthenticationProvider extends ChangeNotifier {
         print(user);
         prefs.setString("jwt", user.token);
         prefs.setString("id", user.id);
+        print("Id : " + user.id!);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Signup Successfull"),
             backgroundColor: Colors.green));
@@ -49,15 +51,14 @@ class AuthenticationProvider extends ChangeNotifier {
 
     try {
       var response = await http.post(Uri.parse(url + "/login"),
-          body: {'email': email, 'password': password},headers: {
-
-          });
-          print(response.body);
+          body: {'email': email, 'password': password}, headers: {});
+      print(response.body);
       if (response.statusCode == 201) {
         var user = User.fromJson(jsonDecode(response.body));
         print(user.name);
         prefs.setString("jwt", user.token);
         prefs.setString("id", user.id);
+        print("Id : " + user.id!);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Login Successfull"), backgroundColor: Colors.green));
         Navigator.pushReplacement(

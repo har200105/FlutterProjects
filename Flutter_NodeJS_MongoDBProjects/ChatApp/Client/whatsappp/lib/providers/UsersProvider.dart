@@ -6,10 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whatsappp/Model/ChatUsers.dart';
 
 class UserProviderNotifier extends ChangeNotifier {
-
-  String url = "http://192.168.1.208:4000";
-
-
+    String url = "https://chatharshit.herokuapp.com";
   Future getAllUsers()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     http.Response response = await http.get(Uri.parse(url + "/getUsers"),headers: {

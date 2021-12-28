@@ -15,8 +15,14 @@ import 'package:timeago/timeago.dart';
 class SingleChatPage extends StatefulWidget {
   final String? chatId;
   final String? chatName;
-   final String? pic;
-  const SingleChatPage({Key? key, this.chatId, this.chatName, this.pic})
+  final String? pic;
+  final String otherUserId;
+  const SingleChatPage(
+      {Key? key,
+      this.chatId,
+      this.chatName,
+      this.pic,
+      required this.otherUserId})
       : super(key: key);
 
   @override
@@ -42,32 +48,59 @@ class _SingleChatPageState extends State<SingleChatPage> {
   @override
   void initState() {
     getUserId();
+    connect();
     Provider.of<MessageNotifierProvider>(context, listen: false)
         .getMessages(widget.chatId);
     super.initState();
   }
 
-  void connect() {
+  void connect() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     // MessageModel messageModel = MessageModel(sourceId: widget.sourceChat.id.toString(),targetId: );
     socket = IO.io("http://192.168.1.208:4000", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
     });
     socket!.connect();
-    socket!.emit("signin", "1");
-    socket.onConnect((data) {
-      print("Connected");
-      socket!.on("message", (msg) {
-        print(msg);
-        setMessage();
+    print(socket!.connected);
+    socket!.emit("entered", prefs.getString("id"));
+    print(prefs.getString("id"));
+    socket!.onConnect((data) {
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      socket!.on("getMessage", (n) {
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
             duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+        // print(n);
+        // print(Messages.fromJson(n).content);
+        // getMessages();
+
+        Provider.of<MessageNotifierProvider>(context, listen: false)
+            .getMessages(widget.chatId)
+            .then((value) => {print("value"), print(value)});
+        setState(() {});
+
+        // Provider.of<MessageNotifierProvider>(context).m!.add(Messages.fromJson(n));
+
+        // getMessages()
+        // Provider.of<MessageNotifierProvider>(context,listen: false).addMessage(n)
+        // _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        //   duration: Duration(milliseconds: 300), curve: Curves.easeOut)
       });
+      // socket!.on("sendMessage", (msg) {
+      //   print(msg);
+      //   // _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+      //   //     duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      // });
     });
-    print(socket!.connected);
   }
 
-  void setMessage() {}
+  // @override
+  // void dispose() {
+  //   socket!.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +126,8 @@ class _SingleChatPageState extends State<SingleChatPage> {
                 titleSpacing: 0,
                 leading: InkWell(
                   onTap: () {
-                    Provider.of<ChatsNotifierProvider>(context, listen: false).getUserChats();
+                    Provider.of<ChatsNotifierProvider>(context, listen: false)
+                        .getUserChats();
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => Home()));
                   },
@@ -106,7 +140,7 @@ class _SingleChatPageState extends State<SingleChatPage> {
                       ),
                     ],
                   ),
-                ),  
+                ),
                 title: InkWell(
                   onTap: () {},
                   child: Container(
@@ -115,9 +149,10 @@ class _SingleChatPageState extends State<SingleChatPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top:8.0),
+                          padding: const EdgeInsets.only(top: 8.0),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(widget.pic ?? "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"),
+                            backgroundImage: NetworkImage(widget.pic ??
+                                "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"),
                             backgroundColor: Colors.white,
                             radius: 20,
                           ),
@@ -148,10 +183,10 @@ class _SingleChatPageState extends State<SingleChatPage> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         controller: _scrollController,
-                        itemCount: message.messages.length,
+                        itemCount: message.messages.length + 1,
                         itemBuilder: (context, index) {
                           if (index == message.messages.length) {
-                            return Container(height: 70);
+                            return Container(height: 50);
                           }
                           if (userid == message.messages[index].sender!.sId) {
                             return MyMessageCard(
@@ -240,7 +275,10 @@ class _SingleChatPageState extends State<SingleChatPage> {
                                         Icons.send,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () {
+                                      onPressed: () async {
+                                        SharedPreferences preferences =
+                                            await SharedPreferences
+                                                .getInstance();
                                         if (sendButton) {
                                           _scrollController.animateTo(
                                               _scrollController
@@ -254,17 +292,20 @@ class _SingleChatPageState extends State<SingleChatPage> {
                                           //     widget.chatModel.id);
                                           message.sendMessage(
                                               widget.chatId!, _controller.text);
-                                                     
+                                          socket!.emit("sendMessage", {
+                                            preferences.getString("id"),
+                                            widget.otherUserId,
+                                            _controller.text
+                                          });
+
                                           _controller.clear();
                                           setState(() {
                                             sendButton = false;
                                             // Provider.of<MessageNotifierProvider>(
                                             //       context,
                                             //       listen: false)
-                                            //   .getMessages(widget.chatId); 
+                                            //   .getMessages(widget.chatId);
                                           });
-
-                                  
                                         }
                                       },
                                     ),

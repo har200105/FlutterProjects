@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:whatsappp/Model/ChatModel.dart';
 
 class ChatsNotifierProvider extends ChangeNotifier {
-  String url = "http://192.168.1.208:4000";
+  String url = "https://chatharshit.herokuapp.com";
   List<Data>? d = [];
   List<Data> get chats => d!;
 
