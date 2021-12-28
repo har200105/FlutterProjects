@@ -6,10 +6,12 @@ const User = require('../models/User');
 
 router.get('/getMessages/:chatId',reqLogin,async (req, res) => {
     try {
+      console.log(req.params.chatId);
         const messages = await Message.find({ chat: req.params.chatId })
             .populate("sender", "name email")
             .populate("chat");
-        res.status(201).json(messages);
+        // console.log(messages)    
+        res.status(201).json({messages});
     } catch (error) {
         res.status(400);
         throw new Error(error.message);
@@ -18,6 +20,7 @@ router.get('/getMessages/:chatId',reqLogin,async (req, res) => {
 
 
 router.post('/sendMessage/:chatId',reqLogin,async(req,res)=>{
+  // console.log(req.body);
     const { content } = req.body;
     const chatId = req.params.chatId;
 

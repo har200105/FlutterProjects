@@ -14,8 +14,9 @@ router.get('/getChats',reqLogin,async(req,res)=>{
             //   path: "latestMessage.sender",
             //   select: "name email",
             // });
-            console.log(results)
-            res.status(201).json(results);
+            // console.log("Chats")
+            // console.log(results);
+            res.status(201).json({data:results});
           });
       } catch (error) {
         res.status(400);
@@ -24,9 +25,8 @@ router.get('/getChats',reqLogin,async(req,res)=>{
 });
 
 router.post('/startChat/:id',reqLogin,async(req,res)=>{
+  // console.log(req.body);
     const userId = req.params.id;
-
-
 
     if (!userId) {
       return res.sendStatus(400);
@@ -47,10 +47,11 @@ router.post('/startChat/:id',reqLogin,async(req,res)=>{
     });
   
     if (isChat.length > 0) {
-      res.status(201).send(isChat[0]);
+      // console.log(isChat[0]._id);
+      res.status(201).json({id:isChat[0]._id});
     } else {
       var chatData = {
-        chatName:user.name,  
+        chatName: user.name,
         users: [req.user._id, userId],
       };
   
@@ -60,7 +61,8 @@ router.post('/startChat/:id',reqLogin,async(req,res)=>{
           "users",
           "-password"
         );
-        res.status(200).json(FullChat);
+        // console.log(FullChat._id);
+        res.status(201).json({id:FullChat._id});
       } catch (error) {
         res.status(400);
         throw new Error(error.message);
