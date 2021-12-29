@@ -2,7 +2,9 @@ import 'package:blogapp/Blog/Blogs.dart';
 import 'package:blogapp/Model/UserModel.dart';
 import 'package:blogapp/NetworkHandler.dart';
 import 'package:blogapp/Profile/EditProfile.dart';
+import 'package:blogapp/Providers/BlogProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainProfile extends StatefulWidget {
   MainProfile({Key key}) : super(key: key);
@@ -28,16 +30,13 @@ class _MainProfileState extends State<MainProfile> {
       profileModel = UserData.fromJson(response);
       circular = false;
     });
+   
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffEEEEFF),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white10,
-      ),
       body: circular
           ? Center(child: CircularProgressIndicator())
           : ListView(
@@ -53,7 +52,7 @@ class _MainProfileState extends State<MainProfile> {
                   height: 20,
                 ),
                 Blogs(
-                  url: "/blogPost/getMyBlog",
+                  profile:true
                 ),
               ],
             ),

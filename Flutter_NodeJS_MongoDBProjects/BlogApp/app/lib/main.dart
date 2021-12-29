@@ -1,4 +1,5 @@
 import 'package:blogapp/Pages/HomePage.dart';
+import 'package:blogapp/Providers/BlogProvider.dart';
 import 'package:blogapp/Services/Utility.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,12 +17,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   Widget page = LoadingPage();
   final storage = FlutterSecureStorage();
+
   @override
   void initState() {
-    super.initState();
     checkLogin();
+    super.initState();
   }
 
   void checkLogin() async {
@@ -40,7 +43,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => UtilityNotifier())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => UtilityNotifier()),
+        ChangeNotifierProvider(create: (_) => BlogProvider())
+        ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

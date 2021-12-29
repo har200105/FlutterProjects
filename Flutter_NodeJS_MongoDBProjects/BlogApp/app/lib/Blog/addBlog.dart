@@ -23,74 +23,82 @@ class _AddBlogState extends State<AddBlog> {
   PickedFile _imageFile;
   IconData iconphoto = Icons.image;
   NetworkHandler networkHandler = NetworkHandler();
+  
   @override
   Widget build(BuildContext context) {
     var utils = Provider.of<UtilityNotifier>(context, listen: false);
     var userImage =
         Provider.of<UtilityNotifier>(context, listen: true).userimage;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyanAccent,
-        centerTitle: true,
-        title: Text(
-          "Add Your Story",
-          style: TextStyle(color: Colors.white),
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.cyanAccent,
+          centerTitle: true,
+          title: Text(
+            "Add Your Story",
+            style: TextStyle(color: Colors.white),
+          ),
+          elevation: 0,
+          leading: IconButton(
+              icon: Icon(
+                Icons.clear,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              }),
         ),
-        elevation: 0,
-        leading: IconButton(
-            icon: Icon(
-              Icons.clear,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
-            }),
-      ),
-      body: Form(
-        key: _globalkey,
-        child: ListView(
-          children: <Widget>[
-            titleTextField(),
-            bodyTextField(),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  utils.uploadImage();
-                },
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.teal),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ))),
-                child: Text(
-                  utils.userimage.isEmpty ? "Upload Image" : "Reselect Image",
-                  style: TextStyle(color: Colors.white),
+        body: Form(
+          key: _globalkey,
+          child: ListView(
+            children: <Widget>[
+              titleTextField(),
+              bodyTextField(),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    utils.uploadImage();
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.teal),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ))),
+                  child: Text(
+                    utils.userimage.isEmpty ? "Upload Image" : "Reselect Image",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            addButton(utils.userimage),
-            userImage.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Container(
-                      height: 150.0,
-                      width: 250.0,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(utils.userimage))),
+              SizedBox(
+                height: 20,
+              ),
+              addButton(utils.userimage),
+              userImage.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Container(
+                        height: 150.0,
+                        width: 250.0,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(utils.userimage))),
+                      ),
+                    )
+                  : Container(
+                      height: 0,
+                      width: 0,
                     ),
-                  )
-                : Container(
-                    height: 0,
-                    width: 0,
-                  ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -61,7 +61,8 @@ class _UserProfileState extends State<UserProfile> {
                   height: 20,
                 ),
                 Blogs(
-                  url: "/blogPost/getUserBlog/" + widget.id,
+                  profile: true,
+                  // url: "/blogPost/getUserBlog/" + widget.id,
                 ),
               ],
             ),

@@ -11,14 +11,14 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.cyan,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Center(
             child: Text(
           "Shiddat",
-          style: TextStyle(color: Colors.white, fontSize: 35.0),
+          style: TextStyle(color: Colors.white, fontSize: 35.0,fontFamily: "Poppins"),
         )),
       ),
     );

@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Blogs(
-          url: "/blogPost/getAllBlogs",
+          profile: false
         ),
       ),
     );

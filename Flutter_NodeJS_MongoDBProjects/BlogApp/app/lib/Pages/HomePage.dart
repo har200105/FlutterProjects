@@ -1,10 +1,12 @@
 import 'package:blogapp/Blog/addBlog.dart';
 import 'package:blogapp/Pages/WelcomePage.dart';
+import 'package:blogapp/Providers/BlogProvider.dart';
 import 'package:blogapp/Screen/HomeScreen.dart';
 import 'package:blogapp/Profile/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:blogapp/NetworkHandler.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -32,6 +34,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    Provider.of<BlogProvider>(context,listen: false).getAllBlogs();
+     Provider.of<BlogProvider>(context,listen: false).getProfileBlogs();
     checkProfile();
     super.initState();
   }
@@ -53,95 +57,100 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF100E20),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                child: Column(
-                  children: <Widget>[
-                    profilePhoto,
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text("@$username"),
-                  ],
-                ),
-              ),
-              ListTile(
-                title: Text("New Story"),
-                trailing: Icon(Icons.add),
-                onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => AddBlog()));
-                },
-              ),
-              ListTile(
-                title: Text("Logout"),
-                trailing: Icon(Icons.logout),
-                onTap: logout,
-              ),
-            ],
-          ),
-        ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.cyanAccent,
-        title: Text(titleString[currentState]),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.logout), onPressed: logout),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyanAccent,
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddBlog()));
-        },
-        child: Text(
-          "+",
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.cyanAccent,
-        child: Container(
-          height: 60,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return WillPopScope(
+      onWillPop: (){
+        return Future.value(false);
+      },
+      child: Scaffold(
+        backgroundColor: Color(0xFF100E20),
+        drawer: Drawer(
+          child: Container(
+            color: Colors.white,
+            child: ListView(
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.home),
-                  color: currentState == 0 ? Colors.white : Colors.white54,
-                  onPressed: () {
-                    setState(() {
-                      currentState = 0;
-                    });
-                  },
-                  iconSize: 40,
+                DrawerHeader(
+                  child: Column(
+                    children: <Widget>[
+                      profilePhoto,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("@$username"),
+                    ],
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.person),
-                  color: currentState == 1 ? Colors.white : Colors.white54,
-                  onPressed: () {
-                    setState(() {
-                      currentState = 1;
-                    });
+                ListTile(
+                  title: Text("New Story"),
+                  trailing: Icon(Icons.add),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AddBlog()));
                   },
-                  iconSize: 40,
-                )
+                ),
+                ListTile(
+                  title: Text("Logout"),
+                  trailing: Icon(Icons.logout),
+                  onTap: logout,
+                ),
               ],
             ),
           ),
         ),
+        appBar: AppBar(
+          backgroundColor: Colors.cyanAccent,
+          title: Text(titleString[currentState]),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.logout), onPressed: logout),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.cyanAccent,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddBlog()));
+          },
+          child: Text(
+            "+",
+            style: TextStyle(fontSize: 40),
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.cyanAccent,
+          child: Container(
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.home),
+                    color: currentState == 0 ? Colors.white : Colors.white54,
+                    onPressed: () {
+                      setState(() {
+                        currentState = 0;
+                      });
+                    },
+                    iconSize: 40,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.person),
+                    color: currentState == 1 ? Colors.white : Colors.white54,
+                    onPressed: () {
+                      setState(() {
+                        currentState = 1;
+                      });
+                    },
+                    iconSize: 40,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        body: widgets[currentState],
       ),
-      body: widgets[currentState],
     );
   }
 

@@ -89,7 +89,6 @@ class _SignInPageState extends State<SignInPage> {
                     };
                     var response =
                         await networkHandler.post("/user/login", data);
-
                     if (response.statusCode == 200 ||
                         response.statusCode == 201) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
