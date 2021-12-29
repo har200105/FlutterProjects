@@ -35,8 +35,8 @@ class _ContactCardState extends State<ContactCard> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      SingleChatPage(chatId: jsonDecode(value)['id'],chatName: widget.name,otherUserId: widget.id!,)));
-                      
+                      SingleChatPage(chatId: jsonDecode(value)['id'],
+                      chatName: widget.name,otherUserId: widget.id!)));          
         }) : print("Doing");
       },
       leading: Container(
@@ -45,14 +45,11 @@ class _ContactCardState extends State<ContactCard> {
         child: Stack(
           children: [
             CircleAvatar(
-              radius: 23,
-              child: Image.network(
+              radius: 25,
+              backgroundImage: NetworkImage(
                 widget.pic!,
-                color: Colors.white,
-                height: 30,
-                width: 30,
               ),
-              backgroundColor: Colors.blueGrey[200],
+              // backgroundColor: Colors.blueGrey[200],
             ),
             Container()
           ],

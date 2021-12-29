@@ -35,7 +35,8 @@ class _SelectContactState extends State<SelectContact> {
                     icon: Icon(Icons.arrow_back)),
                 ),
                 
-                backgroundColor:Color(0xFF100E20) , body: Center(child: Text("No Contacts Available Currently",style: TextStyle(
+                backgroundColor:Color(0xFF100E20) ,
+                 body: Center(child: Text("No Contacts Available Currently",style: TextStyle(
                 color: Colors.white
               ),),),);
             }else {
@@ -80,7 +81,8 @@ class _SelectContactState extends State<SelectContact> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child:
-                            ContactCard(name: u[index].name, id: u[index].sId,pic: u[index].pic),
+                            ContactCard(name: u[index].name, id: u[index].sId,
+                            pic: u[index].pic),
                       );
                     },
                   )
