@@ -44,6 +44,22 @@ class _BlogState extends State<Blog> {
     }
   }
 
+  void deleteBlog() {
+    Provider.of<BlogProvider>(context, listen: false)
+        .deleteBlog(widget.addBlogModel.sId)
+        .then((value) => {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                    "Blog Deleted Successfully",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: Colors.green,
+                  duration: Duration(seconds: 3))),
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => HomePage()))
+            });
+  }
+
   @override
   void initState() {
     setUserId();
@@ -80,7 +96,6 @@ class _BlogState extends State<Blog> {
     }).then((value) => {
           Provider.of<BlogProvider>(context, listen: false).getAllBlogs(),
           Provider.of<BlogProvider>(context, listen: false).getProfileBlogs(),
-         
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => HomePage()))
         });
@@ -175,12 +190,23 @@ class _BlogState extends State<Blog> {
                           SizedBox(
                             width: 15,
                           ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
+                          id == widget.addBlogModel.postedBy.sId
+                              ? IconButton(
+                                  onPressed: () {
+                                    deleteBlog();
+                                  },
+                                  icon: Icon(Icons.delete),
+                                  color: Colors.red)
+                              : Container(
+                                  width: 0,
+                                  height: 0,
+                                )
+                          // SizedBox(
+                          //   width: 15,
+                          // ),
+                          // SizedBox(
+                          //   width: 8,
+                          // ),
                         ],
                       ),
                     ),

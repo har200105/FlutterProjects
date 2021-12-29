@@ -58,4 +58,16 @@ class BlogProvider extends ChangeNotifier {
       //   notifyListeners();
     }
   }
+
+  Future deleteBlog(String id)async{
+    String token = await storage.read(key: "token");
+    var response = await http.delete(baseurl + "/blogPost/deleteBlog/" + id,
+     headers: {"Authorization": token});
+     print(response.body);
+     if(response.statusCode==201){
+       getAllBlogs();
+       getProfileBlogs();
+       return response.body;
+     }
+  }
 }
