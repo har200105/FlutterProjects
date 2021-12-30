@@ -19,6 +19,8 @@ class _MainProfileState extends State<MainProfile> {
   UserData profileModel = UserData();
   @override
   void initState() {
+    Provider.of<BlogProvider>(context, listen: false).getAllBlogs();
+    Provider.of<BlogProvider>(context, listen: false).getProfileBlogs();
     super.initState();
     fetchData();
   }
@@ -30,7 +32,6 @@ class _MainProfileState extends State<MainProfile> {
       profileModel = UserData.fromJson(response);
       circular = false;
     });
-   
   }
 
   @override
@@ -51,9 +52,7 @@ class _MainProfileState extends State<MainProfile> {
                 SizedBox(
                   height: 20,
                 ),
-                Blogs(
-                  profile:true
-                ),
+                Blogs(profile: true),
               ],
             ),
     );

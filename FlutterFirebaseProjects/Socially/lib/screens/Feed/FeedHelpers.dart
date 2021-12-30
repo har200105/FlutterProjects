@@ -11,6 +11,7 @@ import 'package:thesocial/constants/Constantcolors.dart';
 import 'package:thesocial/screens/Feed/FeedUtils.dart';
 import 'package:thesocial/screens/Feed/FeedServices.dart';
 import 'package:thesocial/screens/AltProfile/AltProfile.dart';
+import 'package:thesocial/screens/Profile/Profile.dart';
 import 'package:thesocial/services/Authentication.dart';
 import 'package:thesocial/services/FirebaseOperations.dart';
 import 'package:thesocial/utils/TimeAgo.dart';
@@ -139,7 +140,6 @@ class FeedHelpers extends ChangeNotifier {
                               )
                             ],
                           ),
-                          //displaying the post image
                           Container(
                             height: MediaQuery.of(context).size.height * 0.46,
                             width: MediaQuery.of(context).size.width,
@@ -152,7 +152,6 @@ class FeedHelpers extends ChangeNotifier {
                             ),
                           ),
                           SizedBox(height: 5),
-                          //row of button for like,comment,reward
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -260,7 +259,6 @@ class FeedHelpers extends ChangeNotifier {
                               SizedBox(width: 15),
 
                               Spacer(),
-                              //conditional tree dots
                               documentSnapshot.get('useruid') ==
                                       Provider.of<Authentication>(context)
                                           .getUserUid
@@ -446,8 +444,15 @@ class FeedHelpers extends ChangeNotifier {
                                                     type: PageTransitionType
                                                         .leftToRight,
                                                   ));
+                                            }else{
+                                               Navigator.pushReplacement(
+                                                  context,
+                                                  PageTransition(
+                                                    child: Profile(),
+                                                    type: PageTransitionType
+                                                        .leftToRight,
+                                                  ));
                                             }
-                                            return;
                                           },
                                         ),
                                         SizedBox(width: 10),

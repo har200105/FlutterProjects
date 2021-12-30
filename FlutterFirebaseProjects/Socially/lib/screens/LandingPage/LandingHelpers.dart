@@ -11,24 +11,10 @@ import 'package:thesocial/services/Authentication.dart';
 
 class LandingHelpers extends ChangeNotifier {
   ConstantColors constantColors = ConstantColors();
-  Widget bodyImage(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.6,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/login.png'),
-        ),
-      ),
-    );
-  }
 
   Widget taglineText(BuildContext context) {
-    return Positioned(
-      left: 20,
-      top: 460,
+    return Center(
       child: Container(
-        width: 170,
         child: RichText(
           text: TextSpan(
               text: 'Are ',
@@ -102,28 +88,7 @@ class LandingHelpers extends ChangeNotifier {
       ),
     );
   }
-
-  Widget privacyText(BuildContext context) {
-    return Positioned(
-        top: 740,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "By Countinuing you agree theSocials's Terms of",
-                style: TextStyle(color: constantColors.greyColor),
-              ),
-              Text(
-                "Services & Privacy Policy",
-                style: TextStyle(color: constantColors.greyColor),
-              )
-            ],
-          ),
-        ));
-  }
-
+  
   Future emailAuthSheet(BuildContext context) {
     return showModalBottomSheet(
         context: context,

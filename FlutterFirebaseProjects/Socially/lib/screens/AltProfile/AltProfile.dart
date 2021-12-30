@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:thesocial/constants/Constantcolors.dart';
 import 'package:thesocial/screens/AltProfile/AltProfileHelpers.dart';
 import 'package:thesocial/screens/HomePage/HomePage.dart';
+import 'package:thesocial/screens/Profile/ProfileHelpers.dart';
 
 class AltProfile extends StatelessWidget {
   final ConstantColors constantColors = ConstantColors();
@@ -13,43 +14,19 @@ class AltProfile extends StatelessWidget {
   AltProfile({@required this.userUid});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: constantColors.blueGreyColor,
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: constantColors.whiteColor,
-          ),
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                PageTransition(
-                    child: HomePage(), type: PageTransitionType.leftToRight));
-          },
-        ),
-        title: RichText(
-            text: TextSpan(
-                text: 'The',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: constantColors.whiteColor,
-                ),
-                children: [
-              TextSpan(
-                text: 'Social',
-                style: TextStyle(
-                    color: constantColors.blueColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0),
-              )
-            ])),
-        actions: [
-          IconButton(
+    return WillPopScope(
+      onWillPop: () {
+        Provider.of<ProfileHelpers>(context, listen: false)
+            .logoutDialog(context);
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: constantColors.blueGreyColor,
+          centerTitle: true,
+          leading: IconButton(
             icon: Icon(
-              EvaIcons.moreVertical,
+              Icons.arrow_back_ios_rounded,
               color: constantColors.whiteColor,
             ),
             onPressed: () {
@@ -59,44 +36,76 @@ class AltProfile extends StatelessWidget {
                       child: HomePage(), type: PageTransitionType.leftToRight));
             },
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 1.3,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: constantColors.blueGreyColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              )),
-          child: StreamBuilder<DocumentSnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(this.userUid)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return Column(
+          title: RichText(
+              text: TextSpan(
+                  text: 'The',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: constantColors.whiteColor,
+                  ),
                   children: [
-                    Provider.of<AltProfileHelpers>(context, listen: false)
-                        .headerAltProfile(context, snapshot, userUid),
-                    Provider.of<AltProfileHelpers>(context, listen: false)
-                        .divider(context),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Provider.of<AltProfileHelpers>(context, listen: false)
-                        .footerProfile(context, this.userUid),
-                  ],
-                );
-              }
-            },
+                TextSpan(
+                  text: 'Social',
+                  style: TextStyle(
+                      color: constantColors.blueColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0),
+                )
+              ])),
+          actions: [
+            IconButton(
+              icon: Icon(
+                EvaIcons.moreVertical,
+                color: constantColors.whiteColor,
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                        child: HomePage(),
+                        type: PageTransitionType.leftToRight));
+              },
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height * 1.3,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: constantColors.blueGreyColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                )),
+            child: StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(this.userUid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      Provider.of<AltProfileHelpers>(context, listen: false)
+                          .headerAltProfile(context, snapshot, userUid),
+                      Provider.of<AltProfileHelpers>(context, listen: false)
+                          .divider(context),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Provider.of<AltProfileHelpers>(context, listen: false)
+                          .footerProfile(context, this.userUid),
+                    ],
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),

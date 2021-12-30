@@ -5,6 +5,7 @@ import 'package:thesocial/screens/Feed/Feed.dart';
 import 'package:thesocial/screens/ChatList/ChatList.dart';
 import 'package:thesocial/screens/Profile/Profile.dart';
 import 'package:thesocial/screens/HomePage/HomePageHelpers.dart';
+import 'package:thesocial/screens/Profile/ProfileHelpers.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,21 +19,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      
-      backgroundColor: constantColors.darkColor,
-      body: PageView(
-        controller: homepageController,
-        children: [Feed(), ChatList(), Profile()],
-        //physics: NeverScrollableScrollPhysics(),
-        onPageChanged: (page) {
-          setState(() {
-            pageIndex = page;
-          });
-        },
+    return WillPopScope(
+      onWillPop:(){
+            Provider.of<ProfileHelpers>(context, listen: false)
+                    .logoutDialog(context);
+        return Future.value(false);
+      },
+      child: Scaffold(
+        backgroundColor: constantColors.darkColor,
+        body: PageView(
+          controller: homepageController,
+          children: [Feed(), ChatList(), Profile()],
+          //physics: NeverScrollableScrollPhysics(),
+          onPageChanged: (page) {
+            setState(() {
+              pageIndex = page;
+            });
+          },
+        ),
+        bottomNavigationBar: Provider.of<HomePageHelpers>(context, listen: false)
+            .bottomNavBar(context, pageIndex, homepageController),
       ),
-      bottomNavigationBar: Provider.of<HomePageHelpers>(context, listen: false)
-          .bottomNavBar(context, pageIndex, homepageController),
     );
   }
 }

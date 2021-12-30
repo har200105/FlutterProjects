@@ -1,7 +1,9 @@
 import 'package:blogapp/Blog/Blogs.dart';
 import 'package:blogapp/Model/UserModel.dart';
 import 'package:blogapp/NetworkHandler.dart';
+import 'package:blogapp/Providers/BlogProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'MainProfile.dart';
 
 class UserProfile extends StatefulWidget {
@@ -20,6 +22,8 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   void initState() {
+    Provider.of<BlogProvider>(context, listen: false).getAllBlogs();
+    Provider.of<BlogProvider>(context, listen: false).getProfileBlogs();
     fetchData();
     super.initState();
   }

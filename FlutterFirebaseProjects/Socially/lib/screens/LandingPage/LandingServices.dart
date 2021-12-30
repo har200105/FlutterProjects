@@ -194,18 +194,18 @@ class LandingServices extends ChangeNotifier {
     GlobalKey<FormState> _usernameKey = GlobalKey<FormState>();
     GlobalKey<FormState> _passwordKey = GlobalKey<FormState>();
     String _emailValidator(value) {
-      if (value.isEmpty) return 'please fill the email';
+      if (value.isEmpty) return 'Please fill the email';
       return null;
     }
 
     String _usernameValidator(value) {
-      if (value.isEmpty) return 'please fill the username';
+      if (value.isEmpty) return 'Please fill the username';
       return null;
     }
 
     String _passwordValidator(value) {
       if (value.isEmpty)
-        return 'please fill the email';
+        return 'Please fill the email';
       else if (value.toString().length < 6)
         return 'make sure password has minimum 6 characters';
       return null;
@@ -216,7 +216,7 @@ class LandingServices extends ChangeNotifier {
         context: context,
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.8,
             decoration: BoxDecoration(
                 color: constantColors.blueGreyColor,
                 borderRadius: BorderRadius.only(
@@ -259,7 +259,7 @@ class LandingServices extends ChangeNotifier {
                     validator: _emailValidator,
                     controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: 'Enter Email ...',
+                      hintText: 'Enter Email ....',
                       hintStyle: TextStyle(
                         color: constantColors.whiteColor,
                         fontWeight: FontWeight.bold,
@@ -559,7 +559,7 @@ class LandingServices extends ChangeNotifier {
         isScrollControlled: true,
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height * 0.1,
+            height: MediaQuery.of(context).size.height * 0.2,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 color: constantColors.blueGreyColor,
@@ -569,6 +569,9 @@ class LandingServices extends ChangeNotifier {
                 )),
             child: Column(
               children: [
+                Text("Please Select Image First",style: TextStyle(
+                  color: Colors.white
+                ),),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 140),
                   child: Divider(
